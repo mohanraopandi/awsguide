@@ -1,0 +1,56 @@
+tomcat installation on EC2
+==========================
+Login with root id.
+java --version 
+
+Install java, yum install java-1.8*
+
+Install wget if not present,  yum install wget -y
+switch to /opt directory.   cd /opt
+
+
+wget http://apachemirror.wuchna.com/tomcat/tomcat-8/v8.5.51/bin/apache-tomcat-8.5.51.tar.gz
+
+tar -zvxf apache-tomcat-8.5.51.tar.gz , Extracting the file.
+
+
+Changin the permissions on start and stop scipts.
+
+chmod +x startup.sh
+chmod +x shutdown.sh
+
+//Now lets start tomcat service
+[root@ip-xxx-xx-xx-xx bin]$ ./startup.sh
+
+Change the port number if required from server.xml
+
+Restart the tomcat service (browse to the bin folder)
+
+[root@ip-xxx-xx-xx-xx bin]$ ./shutdown.sh
+
+[root@ip-xxx-xx-xx-xx conf]$ ./startup.sh
+
+By default the manager is only accessible from a browser running on the same machine as Tomcat. Therefore to modify this restriction, go to context.xml file and comment out the default IP address.
+
+Use the ‘find’ command to find the context.xml
+
+[root@ip-xxx-xx-xx-xx conf]$ find / -name context.xml
+You will get a list, and edit context.xml (comment ) within webapp, both under host-manager and manager.
+
+Ex:
+<Context antiResourceLocking="false" privileged="true" >
+<!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
+  <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
+-->
+</Context>
+
+
+Specify the roles and the users:
+Browse to the conf directory and open the tomcat-users.xml for editing.
+
+[root@ip-xxx-xx-xx-xx conf]$ find / -name context.xml
+
+
+Ref: https://devops4solutions.com/installation-of-tomcat-on-aws-ec2-linux-integration-with-jenkins/
+
