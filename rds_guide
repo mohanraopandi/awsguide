@@ -1,0 +1,18 @@
+sudo su -
+yum install mysql -y
+
+mysql -h <<dns of the RDS instance>> -P <<port no>> -u <<UserName>> -p
+
+Example : mysql -h mydbinstance.ctl0thwsmoxk.us-east-1.rds.amazonaws.com -P 3306 -u mydbinstance -p
+
+Create database BOOKDB;
+ show databases;
+ 
+ use BOOKDB;
+ show tables;
+ 
+CREATE TABLE MYEMP(FNAME VARCHAR(255),LNAME VARCHAR(255));
+
+INSERT INTO MYEMP (FNAME,LNAME) values ('Mohan','Rao');
+INSERT INTO MYEMP (FNAME,LNAME) values ('Sachin','Tendulkar');
+
